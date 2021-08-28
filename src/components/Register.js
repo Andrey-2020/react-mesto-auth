@@ -1,13 +1,9 @@
 import React from 'react';
 import Header from './Header'
-import InfoTooltip from './InfoTooltip'
 import { useHistory } from 'react-router-dom';
-import { register } from '../utils/userAuth.js'
-function Register() {
+function Register(props) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [isInfoTooltip, setInfoTooltip] = React.useState(false);
-    const [result, setResult] = React.useState(false);
     const history = useHistory();
     function handleEmailChange(e) {
         setEmail(e.target.value);
@@ -18,38 +14,17 @@ function Register() {
     }
     function handleSubmit(e) {
         e.preventDefault()
-        register(password, email)
-            .then((res) => {
-                console.log(res)
-                if (res) {
-                    setResult(true)
-                    setInfoTooltip(true)
-                    setEmail('')
-                    setPassword('')
-                } else {
-                    setResult(false)
-                    setInfoTooltip(true)
-                }
-            })
-            .catch((err) => {
-                return console.log(err)
-            })
+        console.log(props.result)
+        props.handleRegister(password, email)
     }
-
-    function onClose() {
-        setInfoTooltip(false)
-        setResult(false)
-    }
-
     function handleRegistrPush() {
         history.push('/sign-in');
     }
     return (
-        <>
-            <Header >
-                <button className={'header__sign'} onClick={handleRegistrPush}>Войти</button>
-            </Header>
             <section className={'sign'}>
+                <Header >
+                    <button className={'header__sign'} onClick={handleRegistrPush}>Войти</button>
+                </Header>
                 <div className={`sign__container`}>
                     <h2 className={`sign__heading`}>Регистрация</h2>
                     <form className={`form form_type_sign`} name={`form-login`} onSubmit={handleSubmit}>
@@ -66,8 +41,6 @@ function Register() {
                     <button className={'sign__button'} onClick={handleRegistrPush}>Уже зарегистрированы? Войти</button>
                 </div>
             </section>
-            <InfoTooltip isOpen={isInfoTooltip} onClose={onClose} result={result} />
-        </>
     )
 }
 

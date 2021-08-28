@@ -22,7 +22,7 @@ function AddPlacePopup(props) {
         setUrl('');
     }, [props.isOpen]);
     return (
-        <PopupWithForm name="add" title="Новое место" isOpen={props.isOpen} onClose={props.onClose} onUpdateUser={props.onUpdateUser} onSubmit={handleSubmit} header={true}>
+        <PopupWithForm name="add" title="Новое место" isOpen={props.isOpen} buttonText={"Создать"} onClose={props.onClose} onUpdateUser={props.onUpdateUser} onSubmit={handleSubmit}>
             <fieldset className="form__input-container form__input-container_type_add">
                 <input className="form__input form__input_type_name" type="text" name="name" placeholder="Название"
                     minLength="2" maxLength="30" id="place-input" value={name} onChange={handleNameChange} required />
@@ -31,7 +31,6 @@ function AddPlacePopup(props) {
                     placeholder="Ссылка на картинку" id="url-input" value={url} onChange={handleUrlChange} required />
                 <span className="url-input-error form__input-error"></span>
             </fieldset>
-            <button className="form__button" type="submit" aria-label="submit">Создать</button>
         </PopupWithForm>
     )
 }
